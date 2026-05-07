@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Habuild — Physiotherapy</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:#1a1a1a;display:flex;justify-content:center;align-items:flex-start;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
+.app{width:100%;max-width:430px;min-height:100vh;background:#FFFAF6;display:flex;flex-direction:column;position:relative;}
+.sbar{background:#F5EDE0;padding:12px 20px 8px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:500;color:#5F5040;flex-shrink:0;}
+.scroll{flex:1;overflow-y:auto;background:#FFFAF6;}
+.screen{display:none;flex-direction:column;height:100vh;}
+.screen.active{display:flex;}
+.hero{background:#F5EDE0;padding:22px 20px 24px;}
+.badge{display:inline-flex;align-items:center;gap:5px;background:#C9896A;color:#FFF8F2;font-size:11px;font-weight:500;padding:4px 11px;border-radius:20px;margin-bottom:12px;}
+.hero-h{font-size:22px;font-weight:500;color:#3D2210;line-height:1.3;margin-bottom:8px;}
+.hero-p{font-size:13px;color:#7A5A40;line-height:1.65;margin-bottom:20px;}
+.btn-brown{background-color:#7A4F2E;color:#FFFFFF;border-radius:12px;padding:14px 16px;font-size:15px;font-weight:500;width:100%;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;user-select:none;}
+.btn-label{display:flex;align-items:center;gap:8px;}
+.btn-arr{width:28px;height:28px;background-color:rgba(255,255,255,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.booking-banner{margin:14px 20px 0;border-radius:14px;padding:13px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;}
+.booking-banner.has-booking{background:#FFF8F2;border:1px solid #C9896A;}
+.booking-banner.no-booking{background:#F5F5F5;border:1px solid #D3C4B0;}
+.ab-dot-active{width:10px;height:10px;background:#C9896A;border-radius:50%;flex-shrink:0;}
+.ab-dot-empty{width:10px;height:10px;background:#D3C4B0;border-radius:50%;flex-shrink:0;}
+.sh{padding:18px 20px 4px;}
+.sh-t{font-size:16px;font-weight:500;color:#3D2210;margin-bottom:3px;}
+.sh-s{font-size:12px;color:#A08060;margin-bottom:12px;}
+.cond-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 20px 6px;}
+.ccard{background:#FFF8F2;border:0.5px solid #D3C4B0;border-radius:12px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;-webkit-tap-highlight-color:transparent;}
+.ccard:active{border-color:#C9896A;background:#FAF0E6;}
+.ccard-img{width:62px;height:62px;margin-bottom:6px;}
+.cc-n{font-size:11px;font-weight:500;color:#3D2210;line-height:1.3;}
+.tlist{padding:0 20px 20px;}
+.tcard{background:#FFF8F2;border:0.5px solid #D3C4B0;border-radius:14px;padding:14px;margin-bottom:10px;}
+.thead2{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.tav{width:42px;height:42px;border-radius:50%;background:#EDD9C0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#7A4F2E;flex-shrink:0;}
+.tnm{font-size:13px;font-weight:500;color:#3D2210;}
+.tmt{font-size:11px;color:#A08060;}
+.tstars{display:flex;gap:1px;margin-left:auto;}
+.tst{font-size:13px;color:#C9896A;}
+.ttxt{font-size:12px;color:#5F4030;line-height:1.65;}
+.bnav{background:#F5EDE0;border-top:0.5px solid #D3C4B0;display:flex;padding:10px 0 20px;flex-shrink:0;}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.bni-ic{font-size:22px;color:#B0907A;}
+.bni-ic.on{color:#7A4F2E;}
+.bni-lb{font-size:10px;color:#B0907A;}
+.bni-lb.on{color:#7A4F2E;font-weight:500;}
+.back-row{display:flex;align-items:center;gap:10px;padding:12px 20px;background:#F5EDE0;border-bottom:0.5px solid #D3C4B0;flex-shrink:0;}
+.back-btn{background:none;border:none;cursor:pointer;color:#7A4F2E;font-size:20px;padding:0;line-height:1;}
+.help-row{display:flex;gap:9px;align-items:flex-start;background:#FFF8F2;border:0.5px solid #D3C4B0;border-radius:10px;padding:11px 12px;margin-bottom:8px;}
+.tips-box{margin:14px 20px 0;background:#FFF8F2;border:0.5px solid #D3C4B0;border-radius:12px;padding:14px;}
+.tips-lbl{font-size:12px;font-weight:500;color:#A08060;margin-bottom:6px;}
+.tips-txt{font-size:13px;color:#5F4030;line-height:1.65;}
+.prog-wrap{padding:14px 20px 10px;background:#F5EDE0;flex-shrink:0;}
+.prog-lbl{font-size:11px;color:#A08060;margin-bottom:5px;display:flex;justify-content:space-between;}
+.prog-track{height:4px;background:#D3C4B0;border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;background:#7A4F2E;border-radius:4px;transition:width 0.3s;}
+.opt-list{display:flex;flex-direction:column;gap:8px;padding:0 20px;}
+.opt{background:#FFF8F2;border:1px solid #D3C4B0;border-radius:12px;padding:13px 14px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:14px;color:#3D2210;-webkit-tap-highlight-color:transparent;}
+.opt.sel{border:2px solid #7A4F2E;background:#FAF0E6;color:#7A4F2E;font-weight:500;}
+.opt-chk{font-size:16px;color:#7A4F2E;display:none;}
+.opt.sel .opt-chk{display:block;}
+.nxt-wrap{padding:16px 20px 24px;display:flex;gap:10px;}
+.bk-input{width:100%;padding:13px 14px;background:#FFFFFF;border:1.5px solid #D3C4B0;border-radius:12px;font-size:14px;color:#3D2210;outline:none;}
+.bk-input:focus{border-color:#7A4F2E;}
+.bk-textarea{width:100%;padding:13px 14px;background:#FFFFFF;border:1.5px solid #D3C4B0;border-radius:12px;font-size:14px;color:#3D2210;outline:none;resize:none;height:100px;}
+.bk-textarea:focus{border-color:#7A4F2E;}
+.pain-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:0 20px;}
+.pain-num{background:#FFF8F2;border:1px solid #D3C4B0;border-radius:10px;padding:12px 4px;text-align:center;cursor:pointer;font-size:15px;font-weight:500;color:#3D2210;}
+.pain-num.sel{border:2px solid #7A4F2E;background:#FAF0E6;color:#7A4F2E;}
+.prev-btn{background:#F5EDE0;color:#7A4F2E;border:1.5px solid #D3C4B0;border-radius:12px;padding:14px 16px;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.date-row{display:flex;gap:8px;padding:6px 20px 14px;overflow-x:auto;}
+.dchip{flex-shrink:0;background:#FFF8F2;border:0.5px solid #D3C4B0;border-radius:10px;padding:8px 13px;text-align:center;cursor:pointer;}
+.dchip.on{background:#7A4F2E;border-color:#7A4F2E;}
+.dday{font-size:10px;color:#A08060;}
+.dnum{font-size:15px;font-weight:500;color:#3D2210;}
+.dchip.on .dday,.dchip.on .dnum{color:#FFF8F2;}
+.slot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 20px;}
+.slot{background:#FFF8F2;border:0.5px solid #D3C4B0;border-radius:10px;padding:10px 4px;text-align:center;cursor:pointer;font-size:13px;color:#3D2210;}
+.slot.sel{border:1.5px solid #7A4F2E;background:#FAF0E6;color:#7A4F2E;font-weight:500;}
+.cf-body{padding:28px 20px;display:flex;flex-direction:column;align-items:center;}
+.cf-ic{width:68px;height:68px;background:#EDD9C0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;color:#7A4F2E;margin-bottom:16px;}
+.cf-card{background:#FFF8F2;border:0.5px solid #D3C4B0;border-radius:14px;padding:16px;width:100%;margin-bottom:20px;}
+.cf-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid #EDD9C0;font-size:13px;}
+.cf-row:last-child{border-bottom:none;}
+</style>
+</head>
+<body>
+<div class="app">
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="ill-back"><circle cx="45" cy="45" r="32" fill="#E8F4FB" opacity="0.7"/><circle cx="45" cy="18" r="9" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><line x1="45" y1="27" x2="45" y2="33" stroke="#BFC8D0" stroke-width="1.5"/><path d="M30 33 Q25 40 26 56 L32 72 L58 72 L64 56 Q65 40 60 33 Z" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M30 35 Q20 42 18 55" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M60 35 Q70 42 72 55" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><circle cx="45" cy="42" r="11" fill="#E8736A" opacity="0.75"/><circle cx="45" cy="42" r="6" fill="#D94F45" opacity="0.85"/></g>
+    <g id="ill-knee"><circle cx="45" cy="45" r="32" fill="#E8F4FB" opacity="0.7"/><circle cx="45" cy="14" r="8" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M38 22 L38 48 L42 48" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M52 22 L52 48 L48 48" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><line x1="42" y1="48" x2="40" y2="64" stroke="#BFC8D0" stroke-width="1.5"/><line x1="48" y1="48" x2="50" y2="64" stroke="#BFC8D0" stroke-width="1.5"/><line x1="40" y1="64" x2="39" y2="80" stroke="#BFC8D0" stroke-width="1.5"/><line x1="50" y1="64" x2="51" y2="80" stroke="#BFC8D0" stroke-width="1.5"/><circle cx="44" cy="64" r="11" fill="#E8736A" opacity="0.75"/><circle cx="44" cy="64" r="6" fill="#D94F45" opacity="0.85"/></g>
+    <g id="ill-shoulder"><circle cx="45" cy="45" r="32" fill="#E8F4FB" opacity="0.7"/><circle cx="45" cy="16" r="9" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><line x1="45" y1="25" x2="45" y2="31" stroke="#BFC8D0" stroke-width="1.5"/><path d="M29 32 Q36 30 45 31 Q54 30 61 32" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M34 30 L33 58 L57 58 L56 30" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M29 32 Q22 42 20 56" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M61 32 Q68 42 70 56" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><line x1="39" y1="58" x2="37" y2="78" stroke="#BFC8D0" stroke-width="1.5"/><line x1="51" y1="58" x2="53" y2="78" stroke="#BFC8D0" stroke-width="1.5"/><circle cx="28" cy="34" r="12" fill="#E8736A" opacity="0.75"/><circle cx="28" cy="34" r="7" fill="#D94F45" opacity="0.85"/></g>
+    <g id="ill-hip"><circle cx="45" cy="45" r="32" fill="#E8F4FB" opacity="0.7"/><circle cx="45" cy="15" r="8" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M33 24 Q28 32 29 48 L35 65 L55 65 L61 48 Q62 32 57 24 Z" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M33 26 Q24 34 22 48" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M57 26 Q66 34 68 48" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><line x1="37" y1="65" x2="35" y2="82" stroke="#BFC8D0" stroke-width="1.5"/><line x1="53" y1="65" x2="55" y2="82" stroke="#BFC8D0" stroke-width="1.5"/><circle cx="45" cy="56" r="12" fill="#E8736A" opacity="0.75"/><circle cx="45" cy="56" r="7" fill="#D94F45" opacity="0.85"/></g>
+    <g id="ill-neuro"><circle cx="45" cy="45" r="32" fill="#E8F4FB" opacity="0.7"/><circle cx="45" cy="18" r="10" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M33 34 Q26 26 30 18" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><circle cx="30" cy="17" r="3" fill="none" stroke="#BFC8D0" stroke-width="1.2"/><path d="M37 28 L36 60 L54 60 L53 28" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M53 30 Q62 38 64 52" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><line x1="40" y1="60" x2="38" y2="78" stroke="#BFC8D0" stroke-width="1.5"/><line x1="50" y1="60" x2="52" y2="78" stroke="#BFC8D0" stroke-width="1.5"/><circle cx="45" cy="16" r="12" fill="#E8736A" opacity="0.7"/><circle cx="45" cy="16" r="7" fill="#D94F45" opacity="0.82"/></g>
+    <g id="ill-cardiac"><circle cx="45" cy="45" r="32" fill="#E8F4FB" opacity="0.7"/><circle cx="45" cy="15" r="9" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><line x1="45" y1="24" x2="45" y2="30" stroke="#BFC8D0" stroke-width="1.5"/><path d="M29 32 Q37 29 45 30 Q53 29 61 32" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M34 30 L33 60 L57 60 L56 30" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M29 32 Q22 42 21 54" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><path d="M61 32 Q68 42 69 54" fill="none" stroke="#BFC8D0" stroke-width="1.5"/><line x1="39" y1="60" x2="37" y2="78" stroke="#BFC8D0" stroke-width="1.5"/><line x1="51" y1="60" x2="53" y2="78" stroke="#BFC8D0" stroke-width="1.5"/><circle cx="38" cy="42" r="12" fill="#E8736A" opacity="0.75"/><circle cx="38" cy="42" r="7" fill="#D94F45" opacity="0.85"/></g>
+  </defs>
+</svg>
+
+  <!-- HOME -->
+  <div class="screen active" id="s-home">
+    <div class="sbar"><span id="clock">9:41</span></div>
+    <div class="scroll">
+      <div class="hero">
+        <div class="badge">Free Online Sessions <i class="ti ti-video" style="font-size:12px;margin-left:2px"></i></div>
+        <div class="hero-h">Get relief from pain with expert physiotherapy</div>
+        <div class="hero-p">Struggling with knee, back, shoulder or joint pain? Our certified physiotherapists help you eliminate pain — from the comfort of your home.</div>
+        <div class="btn-brown" onclick="go('s-booking')"><span class="btn-label"><i class="ti ti-calendar-plus" style="font-size:17px"></i> Book a free session</span><span class="btn-arr"><i class="ti ti-arrow-right" style="font-size:14px;color:#fff"></i></span></div>
+      </div>
+      <div class="booking-banner has-booking" onclick="go('s-mybookings')" id="booking-banner">
+        <div class="ab-dot-active" id="banner-dot"></div>
+        <div><div style="font-size:11px;color:#A08060;" id="banner-label">Your upcoming session</div><div style="font-size:13px;font-weight:500;color:#3D2210;" id="banner-val">Knee pain · Fri 9 May · 10:30 AM</div></div>
+        <i class="ti ti-chevron-right" style="font-size:16px;color:#C9896A;margin-left:auto" id="banner-chevron"></i>
+      </div>
+      <div class="sh"><div class="sh-t">Conditions we help with</div><div class="sh-s">Tap any condition to learn more & book</div></div>
+      <div class="cond-grid">
+        <div class="ccard" onclick="goCondition('back')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-back"/></svg><div class="cc-n">Back & Neck</div></div>
+        <div class="ccard" onclick="goCondition('knee')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-knee"/></svg><div class="cc-n">Knee & Ankle</div></div>
+        <div class="ccard" onclick="goCondition('shoulder')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-shoulder"/></svg><div class="cc-n">Shoulder & Elbow</div></div>
+        <div class="ccard" onclick="goCondition('hip')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-hip"/></svg><div class="cc-n">Hip & Pelvic</div></div>
+        <div class="ccard" onclick="goCondition('neuro')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-neuro"/></svg><div class="cc-n">Neurological</div></div>
+        <div class="ccard" onclick="goCondition('cardiac')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-cardiac"/></svg><div class="cc-n">Cardiac & Chest</div></div>
+      </div>
+      <div class="sh" style="padding-top:20px;"><div class="sh-t">What our members say</div></div>
+      <div class="tlist">
+        <div class="tcard"><div class="thead2"><div class="tav">SR</div><div><div class="tnm">Sunita R.</div><div class="tmt">58 yrs · Mumbai</div></div><div class="tstars"><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span></div></div><div class="ttxt">"After just 4 sessions, my knee pain reduced significantly. I can climb stairs without wincing now."</div></div>
+        <div class="tcard"><div class="thead2"><div class="tav">AK</div><div><div class="tnm">Arvind K.</div><div class="tmt">45 yrs · Bengaluru</div></div><div class="tstars"><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span></div></div><div class="ttxt">"Years of desk work gave me terrible lower back pain. Gone in 3 weeks of Habuild sessions."</div></div>
+        <div class="tcard"><div class="thead2"><div class="tav">MP</div><div><div class="tnm">Meena P.</div><div class="tmt">62 yrs · Pune</div></div><div class="tstars"><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span></div></div><div class="ttxt">"Frozen shoulder for 2 years. After 8 sessions I can lift my arm above my head again."</div></div>
+      </div>
+      <div style="padding:4px 20px 28px;"><div class="btn-brown" onclick="go('s-booking')"><span class="btn-label"><i class="ti ti-calendar-plus" style="font-size:17px"></i> Book your free session now</span><span class="btn-arr"><i class="ti ti-arrow-right" style="font-size:14px;color:#fff"></i></span></div></div>
+    </div>
+    <div class="bnav">
+      <div class="bni" onclick="go('s-home')"><i class="ti ti-home bni-ic on"></i><span class="bni-lb on">Home</span></div>
+      <div class="bni" onclick="go('s-mybookings')"><i class="ti ti-calendar bni-ic"></i><span class="bni-lb">Bookings</span></div>
+    </div>
+  </div>
+
+  <!-- CONDITION DETAIL -->
+  <div class="screen" id="s-condition">
+    <div class="sbar"><span id="clock2">9:41</span></div>
+    <div class="back-row"><button class="back-btn" onclick="go('s-home')"><i class="ti ti-arrow-left"></i></button><div style="font-size:16px;font-weight:500;color:#3D2210;" id="cd-title">Back & Neck</div></div>
+    <div class="scroll">
+      <div style="background:#F5EDE0;padding:16px 20px;display:flex;align-items:center;gap:16px;"><svg id="cd-svg" width="80" height="80" viewBox="0 0 90 90"><use href="#ill-back"/></svg><div style="font-size:13px;color:#7A5A40;line-height:1.7;flex:1;" id="cd-desc"></div></div>
+      <div style="padding:16px 20px 0;"><div style="font-size:14px;font-weight:500;color:#3D2210;margin-bottom:10px;">How Habuild helps</div><div id="cd-helps"></div></div>
+      <div class="tips-box"><div class="tips-lbl"><i class="ti ti-bulb" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i> Preventive tips</div><div class="tips-txt" id="cd-tips"></div></div>
+      <div style="padding:16px 20px 24px;"><div class="btn-brown" onclick="go('s-booking')"><span class="btn-label"><i class="ti ti-calendar-plus" style="font-size:17px"></i> Book a session for this</span><span class="btn-arr"><i class="ti ti-arrow-right" style="font-size:14px;color:#fff"></i></span></div></div>
+    </div>
+    <div class="bnav">
+      <div class="bni" onclick="go('s-home')"><i class="ti ti-home bni-ic"></i><span class="bni-lb">Home</span></div>
+      <div class="bni" onclick="go('s-mybookings')"><i class="ti ti-calendar bni-ic"></i><span class="bni-lb">Bookings</span></div>
+    </div>
+  </div>
+
+  <!-- MY BOOKINGS -->
+  <div class="screen" id="s-mybookings">
+    <div class="sbar"><span>9:41</span></div>
+    <div class="back-row"><button class="back-btn" onclick="go('s-home')"><i class="ti ti-arrow-left"></i></button><div style="font-size:16px;font-weight:500;color:#3D2210;">My bookings</div></div>
+    <div class="scroll">
+      <div class="sh"><div class="sh-s">Upcoming & past sessions</div></div>
+      <div style="padding:0 20px;">
+        <div style="background:#FFF8F2;border:1.5px solid #C9896A;border-radius:14px;padding:14px;margin-bottom:12px;">
+          <div style="font-size:11px;font-weight:500;color:#C9896A;margin-bottom:6px;">UPCOMING</div>
+          <div style="font-size:14px;font-weight:500;color:#3D2210;margin-bottom:4px;">Knee & Ankle consultation</div>
+          <div style="font-size:12px;color:#7A5A40;margin-bottom:10px;"><i class="ti ti-calendar" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i> Fri, 9 May · 10:30 AM &nbsp;·&nbsp; <i class="ti ti-video" style="font-size:13px;vertical-align:-1px;margin-right:2px"></i> Video call</div>
+          <div class="btn-brown" style="padding:10px 14px;font-size:13px;"><span class="btn-label"><i class="ti ti-video" style="font-size:15px"></i> Join session</span><span class="btn-arr"><i class="ti ti-arrow-right" style="font-size:13px;color:#fff"></i></span></div>
+        </div>
+        <div style="font-size:13px;font-weight:500;color:#A08060;margin:16px 0 10px;">Past sessions</div>
+        <div style="background:#FFF8F2;border:0.5px solid #D3C4B0;border-radius:14px;padding:14px;margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:500;color:#3D2210;margin-bottom:4px;">Back & Neck consultation</div>
+          <div style="font-size:12px;color:#A08060;margin-bottom:8px;"><i class="ti ti-calendar" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i> Mon, 28 Apr · 9:00 AM</div>
+          <div style="display:inline-block;background:#F5EDE0;color:#7A4F2E;font-size:11px;padding:4px 10px;border-radius:10px;">Completed</div>
+        </div>
+      </div>
+    </div>
+    <div class="bnav">
+      <div class="bni" onclick="go('s-home')"><i class="ti ti-home bni-ic"></i><span class="bni-lb">Home</span></div>
+      <div class="bni" onclick="go('s-mybookings')"><i class="ti ti-calendar bni-ic on"></i><span class="bni-lb on">Bookings</span></div>
+    </div>
+  </div>
+
+  <!-- BOOKING -->
+  <div class="screen" id="s-booking">
+    <div class="sbar"><span>9:41</span></div>
+    <div style="background:#F5EDE0;padding:10px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid #D3C4B0;flex-shrink:0;">
+      <button style="background:none;border:none;cursor:pointer;color:#7A4F2E;font-size:20px;padding:0;" onclick="prevStep()"><i class="ti ti-arrow-left"></i></button>
+      <div style="font-size:15px;font-weight:500;color:#3D2210;">Book a session</div>
+      <div style="width:20px"></div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-lbl"><span id="prog-lbl">Step 1 of 8</span><span id="prog-pct">12%</span></div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:12%"></div></div>
+    </div>
+    <div class="scroll" id="bk-content"></div>
+  </div>
+
+  <!-- CONFIRM -->
+  <div class="screen" id="s-confirm">
+    <div class="sbar"><span>9:41</span></div>
+    <div class="scroll">
+      <div class="cf-body">
+        <div class="cf-ic"><i class="ti ti-circle-check"></i></div>
+        <div style="font-size:20px;font-weight:500;color:#3D2210;margin-bottom:6px;">You're booked!</div>
+        <div style="font-size:13px;color:#A08060;text-align:center;line-height:1.65;margin-bottom:20px;">Your session is confirmed. We'll send a reminder 30 minutes before.</div>
+        <div class="cf-card">
+          <div class="cf-row"><span style="color:#A08060;">Condition</span><span style="color:#3D2210;font-weight:500;" id="c-cond">—</span></div>
+          <div class="cf-row"><span style="color:#A08060;">Date</span><span style="color:#3D2210;font-weight:500;" id="c-date">—</span></div>
+          <div class="cf-row"><span style="color:#A08060;">Time</span><span style="color:#3D2210;font-weight:500;" id="c-time">—</span></div>
+          <div class="cf-row"><span style="color:#A08060;">Mode</span><span style="color:#3D2210;font-weight:500;">Video call (online)</span></div>
+          <div class="cf-row"><span style="color:#A08060;">Fee</span><span style="color:#7A4F2E;font-weight:500;">Free (first session)</span></div>
+        </div>
+        <div class="btn-brown" onclick="go('s-home')"><span class="btn-label"><i class="ti ti-home" style="font-size:17px"></i> Back to home</span><span class="btn-arr"><i class="ti ti-arrow-right" style="font-size:14px;color:#fff"></i></span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Live clock
+function updateClock(){const n=new Date();const t=n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');document.querySelectorAll('#clock,#clock2').forEach(e=>{if(e)e.textContent=t;});}
+updateClock();setInterval(updateClock,10000);
+
+const condData={
+  back:{title:"Back & Neck",svg:"#ill-back",desc:"Back and neck pain often stem from poor posture, prolonged sitting, or muscle weakness. Left unaddressed, it can lead to chronic pain and nerve compression.",helps:["Core strengthening exercises tailored to your condition","Ergonomic guidance for home and workspace setup","Cervical mobility exercises to reduce stiffness"],tips:"Take a 2-minute walk every 45 minutes of sitting. Keep your screen at eye level. Sleep on a medium-firm mattress."},
+  knee:{title:"Knee & Ankle",svg:"#ill-knee",desc:"Knee and ankle pain can stem from arthritis, ligament strain, cartilage wear, or sprains. Early intervention prevents worsening and restores full mobility.",helps:["Personalised exercise plan to strengthen knee and ankle muscles","Manual therapy to reduce stiffness and improve joint mobility","Proprioception training to prevent re-injury"],tips:"Avoid sitting cross-legged for long periods. Wear supportive footwear. Stretch your calves every morning."},
+  shoulder:{title:"Shoulder & Elbow",svg:"#ill-shoulder",desc:"Frozen shoulder and rotator cuff injuries can severely limit arm movement. Pain while lifting or reaching overhead are common signs.",helps:["Gentle mobilisation exercises to restore range of motion","Targeted strengthening programme for the rotator cuff","Manual therapy for trigger point and deep tissue relief"],tips:"Avoid sleeping on the affected shoulder. Keep shoulders back and down. Do gentle shoulder circles daily."},
+  hip:{title:"Hip & Pelvic",svg:"#ill-hip",desc:"Hip pain from bursitis, arthritis or a sedentary lifestyle makes walking and sitting uncomfortable. Physiotherapy restores mobility significantly.",helps:["Hip mobility and targeted strengthening routine","Gait retraining to reduce compensatory movement patterns","Manual therapy for joint and surrounding muscle relief"],tips:"Avoid sitting for more than 40 minutes at a stretch. Stretch your hip flexors daily."},
+  neuro:{title:"Neurological",svg:"#ill-neuro",desc:"Neurological conditions like sciatica and nerve compression cause radiating pain and limited function. Physiotherapy can provide significant relief.",helps:["Nerve mobilisation techniques to reduce radiating pain","Posture and movement retraining to reduce nerve irritation","Targeted exercises to restore strength and coordination"],tips:"Avoid prolonged postures that compress nerves. Take regular movement breaks."},
+  cardiac:{title:"Cardiac & Chest",svg:"#ill-cardiac",desc:"Chest tightness and reduced exercise tolerance can benefit greatly from physiotherapy. We help restore respiratory function and build cardiovascular endurance safely.",helps:["Breathing exercises to improve lung capacity","Gradual cardiovascular conditioning programme","Posture correction to reduce chest and rib tension"],tips:"Practice diaphragmatic breathing daily. Short walks improve cardiac function significantly."}
+};
+
+const steps=[
+  {id:"cond",title:"What pain are you dealing with?",sub:"Select your primary concern — Required",type:"options",opts:["Back & Neck pain","Knee & Ankle pain","Shoulder & Elbow pain","Hip & Pelvic pain","Neurological pain","Cardiac & Chest pain","Other"]},
+  {id:"dur",title:"When did you first experience this pain?",sub:"Required",type:"options",opts:["Few days","Few weeks","Few months","Few years"]},
+  {id:"intensity",title:"What is the intensity of your pain?",sub:"1 = lowest, 10 = highest — Required",type:"pain_scale"},
+  {id:"want",title:"What do you want from the physio?",sub:"Required",type:"options",opts:["Exercise to do on my own","Live 1:1 class with a physio","Second opinion"]},
+  {id:"gender",title:"What is your gender?",sub:"Required",type:"options",opts:["Male","Female"]},
+  {id:"age",title:"What is your age?",sub:"Required",type:"text_input",placeholder:"Type your age here..."},
+  {id:"complaint",title:"What is your chief complaint?",sub:"Required",type:"textarea",placeholder:"Describe your main concern in a few words..."},
+  {id:"slot",title:"Pick a date & time",sub:"All sessions are 30 mins via video call",type:"slot"}
+];
+
+let curStep=0,ans={},selDate="Thu 8",selSlot="";
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='s-booking'){curStep=0;ans={};selSlot="";renderStep();}
+}
+
+function prevStep(){
+  if(curStep===0){go('s-home');}else{curStep--;renderStep();}
+}
+
+function goCondition(k){
+  const d=condData[k];
+  document.getElementById("cd-title").textContent=d.title;
+  document.getElementById("cd-svg").innerHTML=`<use href="${d.svg}"/>`;
+  document.getElementById("cd-desc").textContent=d.desc;
+  document.getElementById("cd-helps").innerHTML=d.helps.map(h=>`<div class="help-row"><i class="ti ti-check" style="font-size:16px;color:#C9896A;flex-shrink:0;margin-top:1px"></i><span style="font-size:13px;color:#3D2210;line-height:1.5">${h}</span></div>`).join("");
+  document.getElementById("cd-tips").textContent=d.tips;
+  go('s-condition');
+}
+
+function renderStep(){
+  const s=steps[curStep],tot=steps.length;
+  const pct=Math.round(((curStep+1)/tot)*100);
+  document.getElementById("prog-lbl").textContent=`Step ${curStep+1} of ${tot}`;
+  document.getElementById("prog-pct").textContent=`${pct}%`;
+  document.getElementById("prog-fill").style.width=`${pct}%`;
+  let html=`<div style="padding:16px 20px 12px;"><div style="font-size:17px;font-weight:500;color:#3D2210;margin-bottom:4px;line-height:1.35;">${s.title}</div><div style="font-size:12px;color:#A08060;margin-bottom:14px;">${s.sub}</div></div>`;
+  if(s.type==="options"){
+    html+=`<div class="opt-list">${s.opts.map(o=>`<div class="opt${ans[s.id]===o?' sel':''}" onclick="selOpt('${s.id}','${o.replace(/'/g,"\\'")}')"><span>${o}</span><i class="ti ti-check opt-chk"></i></div>`).join("")}</div>`;
+  } else if(s.type==="pain_scale"){
+    html+=`<div style="padding:0 20px 8px;display:flex;justify-content:space-between;font-size:11px;color:#A08060;"><span>Lowest</span><span>Highest</span></div><div class="pain-grid">${["1","2","3","4","5","6","7","8","9","10"].map(n=>`<div class="pain-num${ans[s.id]===n?' sel':''}" onclick="selOpt('${s.id}','${n}')">${n}</div>`).join("")}</div>`;
+  } else if(s.type==="text_input"){
+    html+=`<div style="padding:0 20px;"><input class="bk-input" type="number" min="1" max="120" placeholder="${s.placeholder}" value="${ans[s.id]||''}" oninput="selOpt('${s.id}',this.value)"/></div>`;
+  } else if(s.type==="textarea"){
+    html+=`<div style="padding:0 20px;"><textarea class="bk-textarea" placeholder="${s.placeholder}" oninput="selOpt('${s.id}',this.value)">${ans[s.id]||''}</textarea></div>`;
+  } else if(s.type==="slot"){
+    const dates=[{d:"Thu",n:"8"},{d:"Fri",n:"9"},{d:"Sat",n:"10"},{d:"Sun",n:"11"},{d:"Mon",n:"12"}];
+    html+=`<div class="date-row">${dates.map(x=>`<div class="dchip${selDate===x.d+' '+x.n?' on':''}" onclick="selDateFn('${x.d} ${x.n}')"><div class="dday">${x.d}</div><div class="dnum">${x.n}</div></div>`).join("")}</div>`;
+    html+=`<div class="slot-grid">${["9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","12:00 PM","4:00 PM","5:00 PM","6:00 PM"].map(sl=>`<div class="slot${selSlot===sl?' sel':''}" onclick="selSlotFn('${sl}')">${sl}</div>`).join("")}</div>`;
+  }
+  const canNext=s.type==="slot"?!!selSlot:s.type==="text_input"||s.type==="textarea"?(ans[s.id]||"").toString().trim().length>0:!!ans[s.id];
+  const isLast=curStep===steps.length-1;
+  const nxtBg=canNext?'background-color:#7A4F2E;color:#FFFFFF;cursor:pointer;':'background-color:#D3C4B0;color:#A08060;cursor:not-allowed;';
+  html+=`<div class="nxt-wrap">${curStep>0?`<div class="prev-btn" onclick="prevStep()"><i class="ti ti-arrow-left" style="font-size:16px"></i> Back</div>`:''}<div onclick="${canNext?'nextStep()':''}" style="${nxtBg}border-radius:12px;padding:14px 16px;font-size:15px;font-weight:500;flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;"><span style="display:flex;align-items:center;gap:8px;">${isLast?'<i class="ti ti-circle-check" style="font-size:17px"></i> Confirm booking':'Continue'}</span>${canNext?`<span style="width:28px;height:28px;background-color:rgba(255,255,255,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-arrow-right" style="font-size:14px;color:#fff"></i></span>`:''}</div></div>`;
+  document.getElementById("bk-content").innerHTML=html;
+}
+
+function selOpt(id,val){ans[id]=val;renderStep();}
+function selDateFn(d){selDate=d;renderStep();}
+function selSlotFn(s){selSlot=s;renderStep();}
+function nextStep(){
+  if(curStep<steps.length-1){curStep++;renderStep();}
+  else{document.getElementById("c-cond").textContent=ans["cond"]||"—";document.getElementById("c-date").textContent=selDate+" May";document.getElementById("c-time").textContent=selSlot||"—";go('s-confirm');}
+}
+</script>
+</body>
+</html>
