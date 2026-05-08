@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Habuild — Physiotherapy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root{
+  --blue-key:#0369A1;--blue-600:#0284C7;--blue-800:#075985;
+  --text-1:#0F172A;--text-2:#334155;--text-3:#475569;
+  --muted:#64748B;--neutral-300:#CBD5E1;
+  --white:#FFFFFF;--surface:#F1F5F9;--border:#E2E8F0;
+  --font:"Poppins",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;background:#fff;font-family:var(--font);}
+body{min-height:100vh;min-height:100dvh;overscroll-behavior:none;}
+.app{width:100%;background:#fff;display:flex;flex-direction:column;}
+.screen{display:none;flex-direction:column;width:100%;}
+.screen.active{display:flex;}
+.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;width:100%;background:#fff;}
+
+
+.hero{background:linear-gradient(160deg,#DCEDFF 0%,#8EC5FC 100%);padding:5vw 5vw 6vw;}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.85);color:var(--blue-800);border:1.5px solid rgba(3,105,161,0.3);font-size:clamp(11px,3vw,13px);font-weight:600;padding:5px 14px;border-radius:50px;margin-bottom:4vw;backdrop-filter:blur(4px);}
+.hero-h{font-size:clamp(20px,5.5vw,26px);font-weight:700;color:var(--text-1);line-height:1.3;margin-bottom:3vw;}
+.hero-p{font-size:clamp(13px,3.8vw,16px);color:var(--text-2);line-height:1.65;margin-bottom:5vw;}
+
+.btn-primary{background:var(--blue-key);color:#fff;border:none;border-radius:100px;padding:clamp(13px,3.5vw,16px) 5vw;font-size:clamp(14px,4vw,16px);font-weight:500;font-family:var(--font);width:100%;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.btn-label{display:flex;align-items:center;gap:8px;}
+.btn-arr{width:clamp(28px,7vw,32px);height:clamp(28px,7vw,32px);background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+.sh{padding:5vw 5vw 2vw;}
+.sh-t{font-size:clamp(15px,4.2vw,18px);font-weight:600;color:var(--text-1);margin-bottom:4px;}
+.sh-s{font-size:clamp(12px,3.2vw,14px);color:var(--muted);margin-bottom:3vw;}
+
+.cond-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5vw;padding:0 5vw 2vw;}
+.ccard{background:#fff;border:1px solid var(--border);border-radius:4vw;padding:3vw 2vw;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;}
+.ccard:active{border-color:var(--blue-600);background:#EFF6FF;}
+.ccard-img{width:clamp(48px,14vw,64px);height:clamp(48px,14vw,64px);margin-bottom:2vw;}
+.cc-n{font-size:clamp(10px,2.8vw,12px);font-weight:600;color:var(--text-2);line-height:1.3;}
+
+.tlist{padding:0 5vw 5vw;}
+.tcard{background:#fff;border:1px solid var(--border);border-radius:4vw;padding:4vw;margin-bottom:3vw;}
+.thead2{display:flex;align-items:center;gap:3vw;margin-bottom:3vw;}
+.tav{width:clamp(36px,10vw,44px);height:clamp(36px,10vw,44px);border-radius:50%;background:#DCEDFF;display:flex;align-items:center;justify-content:center;font-size:clamp(12px,3vw,14px);font-weight:600;color:var(--blue-800);flex-shrink:0;}
+.tnm{font-size:clamp(13px,3.5vw,15px);font-weight:600;color:var(--text-2);}
+.tmt{font-size:clamp(11px,3vw,13px);color:var(--muted);}
+.tstars{display:flex;gap:2px;margin-left:auto;}
+.tst{font-size:clamp(12px,3.2vw,14px);color:#F59E0B;}
+.ttxt{font-size:clamp(13px,3.5vw,15px);color:var(--text-3);line-height:1.65;}
+
+.back-row{display:flex;align-items:center;gap:3vw;padding:4vw 5vw;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;}
+.back-btn{background:none;border:none;cursor:pointer;color:var(--blue-key);font-size:clamp(20px,5.5vw,24px);padding:0;display:flex;align-items:center;}
+
+.cd-hero{background:linear-gradient(160deg,#DCEDFF 0%,#8EC5FC 100%);padding:5vw;display:flex;align-items:flex-start;gap:4vw;}
+.help-row{display:flex;gap:3vw;align-items:flex-start;background:#EFF6FF;border:1px solid #BAE6FD;border-radius:3vw;padding:3vw;margin-bottom:2.5vw;}
+
+.bk-header{background:#fff;padding:3.5vw 5vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0;}
+.prog-wrap{padding:4vw 5vw 3vw;background:var(--surface);flex-shrink:0;}
+.prog-lbl{font-size:clamp(11px,3vw,13px);font-weight:500;color:var(--muted);margin-bottom:2vw;display:flex;justify-content:space-between;}
+.prog-track{height:5px;background:var(--border);border-radius:5px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--blue-600);border-radius:5px;transition:width 0.3s;}
+
+.opt-list{display:flex;flex-direction:column;gap:3vw;padding:0 5vw;}
+.opt{background:#fff;border:1.5px solid var(--border);border-radius:3.5vw;padding:4vw 4.5vw;cursor:pointer;display:flex;align-items:center;justify-content:space-between;font-size:clamp(14px,4vw,16px);color:var(--text-2);min-height:clamp(52px,14vw,62px);}
+.opt.sel{border-color:var(--blue-600);background:#EFF6FF;color:var(--blue-800);font-weight:600;}
+.opt-chk{width:clamp(22px,6vw,26px);height:clamp(22px,6vw,26px);border-radius:50%;background:var(--blue-600);display:none;align-items:center;justify-content:center;flex-shrink:0;}
+.opt-chk i{font-size:clamp(12px,3.2vw,14px);color:#fff;}
+.opt.sel .opt-chk{display:flex;}
+
+.pain-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2.5vw;padding:0 5vw;}
+.pain-num{background:#fff;border:1.5px solid var(--border);border-radius:3vw;padding:3.5vw 2vw;text-align:center;cursor:pointer;font-size:clamp(14px,4vw,17px);font-weight:600;color:var(--text-2);}
+.pain-num.sel{border-color:var(--blue-600);background:#EFF6FF;color:var(--blue-800);}
+
+.bk-input{width:100%;padding:4vw 4.5vw;background:#fff;border:1.5px solid var(--border);border-radius:3.5vw;font-size:clamp(14px,4vw,16px);color:var(--text-2);font-family:var(--font);outline:none;-webkit-appearance:none;}
+.bk-input:focus{border-color:var(--blue-600);}
+.bk-textarea{width:100%;padding:4vw 4.5vw;background:#fff;border:1.5px solid var(--border);border-radius:3.5vw;font-size:clamp(14px,4vw,16px);color:var(--text-2);font-family:var(--font);outline:none;resize:none;min-height:max(100px,25vw);}
+.bk-textarea:focus{border-color:var(--blue-600);}
+
+.nxt-wrap{padding:4vw 5vw max(env(safe-area-inset-bottom,0px),5vw);display:flex;gap:3vw;}
+.prev-btn{background:var(--surface);color:var(--text-2);border:1.5px solid var(--border);border-radius:100px;padding:4vw 5vw;font-size:clamp(13px,3.8vw,15px);font-weight:500;font-family:var(--font);cursor:pointer;display:flex;align-items:center;gap:2vw;flex-shrink:0;}
+
+.date-row{display:flex;gap:2.5vw;padding:2vw 5vw 4vw;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.dchip{flex-shrink:0;background:#fff;border:1.5px solid var(--border);border-radius:3.5vw;padding:2.5vw 4vw;text-align:center;cursor:pointer;}
+.dchip.on{background:var(--blue-600);border-color:var(--blue-600);}
+.dday{font-size:clamp(10px,2.8vw,12px);font-weight:500;color:var(--muted);}
+.dnum{font-size:clamp(15px,4.2vw,18px);font-weight:700;color:var(--text-2);}
+.dchip.on .dday,.dchip.on .dnum{color:#fff;}
+.slot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.5vw;padding:0 5vw;}
+.slot{background:#fff;border:1.5px solid var(--border);border-radius:3vw;padding:3.5vw 2vw;text-align:center;cursor:pointer;font-size:clamp(12px,3.3vw,14px);font-weight:500;color:var(--text-2);}
+.slot.sel{border-color:var(--blue-600);background:#EFF6FF;color:var(--blue-800);font-weight:600;}
+
+.cf-body{padding:8vw 5vw max(env(safe-area-inset-bottom,0px),8vw);display:flex;flex-direction:column;align-items:center;}
+.cf-ic{width:clamp(60px,18vw,80px);height:clamp(60px,18vw,80px);background:#DCEDFF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,9vw,40px);color:var(--blue-key);margin-bottom:5vw;}
+.cf-card{background:#fff;border:1px solid var(--border);border-radius:4vw;padding:4vw;width:100%;margin-bottom:5vw;}
+.cf-row{display:flex;justify-content:space-between;padding:3vw 0;border-bottom:1px solid var(--border);font-size:clamp(13px,3.5vw,15px);}
+.cf-row:last-child{border-bottom:none;}
+
+.upcoming-card{background:#EFF6FF;border:1.5px solid var(--blue-600);border-radius:4vw;padding:4vw;margin-bottom:4vw;}
+.past-card{background:#fff;border:1px solid var(--border);border-radius:4vw;padding:4vw;margin-bottom:3vw;}
+
+.fab{
+  position:fixed;
+  bottom:max(env(safe-area-inset-bottom,0px),5vw);
+  left:5vw;
+  right:5vw;
+  background:var(--blue-key);
+  color:#fff;
+  border:none;
+  border-radius:100px;
+  padding:clamp(14px,4vw,18px) 5vw;
+  font-size:clamp(14px,4vw,16px);
+  font-weight:600;
+  font-family:var(--font);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  box-shadow:0 8px 24px rgba(3,105,161,0.35);
+  z-index:100;
+}
+.fab-arr{width:clamp(28px,7vw,32px);height:clamp(28px,7vw,32px);background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#s-booking,#s-condition,#s-confirm,#s-mybookings{
+  height:100vh;
+  height:100dvh;
+  overflow:hidden;
+}
+#s-booking .scroll,#s-condition .scroll,#s-confirm .scroll,#s-mybookings .scroll{
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <g id="ill-back"><circle cx="45" cy="45" r="32" fill="#DCEDFF" opacity="0.9"/><circle cx="45" cy="18" r="9" fill="none" stroke="#94A3B8" stroke-width="1.5"/><line x1="45" y1="27" x2="45" y2="33" stroke="#94A3B8" stroke-width="1.5"/><path d="M30 33 Q25 40 26 56 L32 72 L58 72 L64 56 Q65 40 60 33 Z" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M30 35 Q20 42 18 55" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M60 35 Q70 42 72 55" fill="none" stroke="#94A3B8" stroke-width="1.5"/><circle cx="45" cy="42" r="11" fill="#60A5FA" opacity="0.6"/><circle cx="45" cy="42" r="6" fill="#2563EB" opacity="0.7"/></g>
+    <g id="ill-knee"><circle cx="45" cy="45" r="32" fill="#DCEDFF" opacity="0.9"/><circle cx="45" cy="14" r="8" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M38 22 L38 48 L42 48" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M52 22 L52 48 L48 48" fill="none" stroke="#94A3B8" stroke-width="1.5"/><line x1="42" y1="48" x2="40" y2="64" stroke="#94A3B8" stroke-width="1.5"/><line x1="48" y1="48" x2="50" y2="64" stroke="#94A3B8" stroke-width="1.5"/><line x1="40" y1="64" x2="39" y2="80" stroke="#94A3B8" stroke-width="1.5"/><line x1="50" y1="64" x2="51" y2="80" stroke="#94A3B8" stroke-width="1.5"/><circle cx="44" cy="64" r="11" fill="#60A5FA" opacity="0.6"/><circle cx="44" cy="64" r="6" fill="#2563EB" opacity="0.7"/></g>
+    <g id="ill-shoulder"><circle cx="45" cy="45" r="32" fill="#DCEDFF" opacity="0.9"/><circle cx="45" cy="16" r="9" fill="none" stroke="#94A3B8" stroke-width="1.5"/><line x1="45" y1="25" x2="45" y2="31" stroke="#94A3B8" stroke-width="1.5"/><path d="M29 32 Q36 30 45 31 Q54 30 61 32" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M34 30 L33 58 L57 58 L56 30" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M29 32 Q22 42 20 56" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M61 32 Q68 42 70 56" fill="none" stroke="#94A3B8" stroke-width="1.5"/><line x1="39" y1="58" x2="37" y2="78" stroke="#94A3B8" stroke-width="1.5"/><line x1="51" y1="58" x2="53" y2="78" stroke="#94A3B8" stroke-width="1.5"/><circle cx="28" cy="34" r="12" fill="#60A5FA" opacity="0.6"/><circle cx="28" cy="34" r="7" fill="#2563EB" opacity="0.7"/></g>
+    <g id="ill-hip"><circle cx="45" cy="45" r="32" fill="#DCEDFF" opacity="0.9"/><circle cx="45" cy="15" r="8" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M33 24 Q28 32 29 48 L35 65 L55 65 L61 48 Q62 32 57 24 Z" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M33 26 Q24 34 22 48" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M57 26 Q66 34 68 48" fill="none" stroke="#94A3B8" stroke-width="1.5"/><line x1="37" y1="65" x2="35" y2="82" stroke="#94A3B8" stroke-width="1.5"/><line x1="53" y1="65" x2="55" y2="82" stroke="#94A3B8" stroke-width="1.5"/><circle cx="45" cy="56" r="12" fill="#60A5FA" opacity="0.6"/><circle cx="45" cy="56" r="7" fill="#2563EB" opacity="0.7"/></g>
+    <g id="ill-neuro"><circle cx="45" cy="45" r="32" fill="#DCEDFF" opacity="0.9"/><circle cx="45" cy="18" r="10" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M33 34 Q26 26 30 18" fill="none" stroke="#94A3B8" stroke-width="1.5"/><circle cx="30" cy="17" r="3" fill="none" stroke="#94A3B8" stroke-width="1.2"/><path d="M37 28 L36 60 L54 60 L53 28" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M53 30 Q62 38 64 52" fill="none" stroke="#94A3B8" stroke-width="1.5"/><line x1="40" y1="60" x2="38" y2="78" stroke="#94A3B8" stroke-width="1.5"/><line x1="50" y1="60" x2="52" y2="78" stroke="#94A3B8" stroke-width="1.5"/><circle cx="45" cy="16" r="12" fill="#60A5FA" opacity="0.55"/><circle cx="45" cy="16" r="7" fill="#2563EB" opacity="0.65"/></g>
+    <g id="ill-cardiac"><circle cx="45" cy="45" r="32" fill="#DCEDFF" opacity="0.9"/><circle cx="45" cy="15" r="9" fill="none" stroke="#94A3B8" stroke-width="1.5"/><line x1="45" y1="24" x2="45" y2="30" stroke="#94A3B8" stroke-width="1.5"/><path d="M29 32 Q37 29 45 30 Q53 29 61 32" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M34 30 L33 60 L57 60 L56 30" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M29 32 Q22 42 21 54" fill="none" stroke="#94A3B8" stroke-width="1.5"/><path d="M61 32 Q68 42 69 54" fill="none" stroke="#94A3B8" stroke-width="1.5"/><line x1="39" y1="60" x2="37" y2="78" stroke="#94A3B8" stroke-width="1.5"/><line x1="51" y1="60" x2="53" y2="78" stroke="#94A3B8" stroke-width="1.5"/><circle cx="38" cy="42" r="12" fill="#60A5FA" opacity="0.6"/><circle cx="38" cy="42" r="7" fill="#2563EB" opacity="0.7"/></g>
+  </defs>
+</svg>
+
+<!-- HOME -->
+<div class="screen active" id="s-home">
+  <div class="scroll">
+    <div class="hero">
+      <div class="badge"><i class="ti ti-video" style="font-size:12px"></i> Free Online Sessions</div>
+      <div class="hero-h">Get relief from pain with expert physiotherapy</div>
+      <div class="hero-p">Certified physiotherapists helping you beat pain — online, from the comfort of home.</div>
+    </div>
+    <div class="sh"><div class="sh-t">Conditions we help with</div><div class="sh-s">Tap any condition to learn more & book</div></div>
+    <div class="cond-grid">
+      <div class="ccard" onclick="goCondition('back')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-back"/></svg><div class="cc-n">Back & Neck</div></div>
+      <div class="ccard" onclick="goCondition('knee')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-knee"/></svg><div class="cc-n">Knee & Ankle</div></div>
+      <div class="ccard" onclick="goCondition('shoulder')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-shoulder"/></svg><div class="cc-n">Shoulder & Elbow</div></div>
+      <div class="ccard" onclick="goCondition('hip')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-hip"/></svg><div class="cc-n">Hip & Pelvic</div></div>
+      <div class="ccard" onclick="goCondition('neuro')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-neuro"/></svg><div class="cc-n">Neurological</div></div>
+      <div class="ccard" onclick="goCondition('cardiac')"><svg class="ccard-img" viewBox="0 0 90 90"><use href="#ill-cardiac"/></svg><div class="cc-n">Cardiac & Chest</div></div>
+    </div>
+    <div class="sh" style="padding-top:6vw;"><div class="sh-t">What our members say</div></div>
+    <div class="tlist">
+      <div class="tcard"><div class="thead2"><div class="tav">SR</div><div><div class="tnm">Sunita R.</div><div class="tmt">58 yrs · Mumbai</div></div><div class="tstars"><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span></div></div><div class="ttxt">"After just 4 sessions, my knee pain reduced significantly. I can climb stairs without wincing now."</div></div>
+      <div class="tcard"><div class="thead2"><div class="tav">AK</div><div><div class="tnm">Arvind K.</div><div class="tmt">45 yrs · Bengaluru</div></div><div class="tstars"><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span></div></div><div class="ttxt">"Years of desk work gave me terrible lower back pain. Gone in 3 weeks of Habuild sessions."</div></div>
+      <div class="tcard"><div class="thead2"><div class="tav">MP</div><div><div class="tnm">Meena P.</div><div class="tmt">62 yrs · Pune</div></div><div class="tstars"><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span><span class="tst">★</span></div></div><div class="ttxt">"Frozen shoulder for 2 years. After 8 sessions I can lift my arm above my head again."</div></div>
+    </div>
+    <div style="padding:0 5vw 24vw;"><!-- spacer so fab doesn't overlap last card --></div>
+  </div>
+  <!-- Floating Book button -->
+  <div class="fab" id="main-fab" onclick="go('s-booking')">
+    <span class="btn-label"><i class="ti ti-calendar-plus"></i><span class="fab-label"> Book a free session</span></span>
+    <span class="fab-arr"><i class="ti ti-arrow-right" style="color:#fff"></i></span>
+  </div>
+</div>
+
+<!-- CONDITION DETAIL -->
+<div class="screen" id="s-condition">
+  <div class="back-row">
+    <button class="back-btn" onclick="go('s-home')"><i class="ti ti-arrow-left"></i></button>
+    <div style="font-size:clamp(15px,4.2vw,18px);font-weight:600;color:var(--text-1);" id="cd-title">Back & Neck</div>
+  </div>
+  <div class="scroll">
+    <div class="cd-hero">
+      <svg id="cd-svg" width="80" height="80" viewBox="0 0 90 90"><use href="#ill-back"/></svg>
+      <div style="font-size:clamp(13px,3.5vw,15px);color:var(--text-2);line-height:1.7;flex:1;" id="cd-desc"></div>
+    </div>
+    <div style="padding:4vw 5vw 0;">
+      <div style="font-size:clamp(11px,3vw,13px);font-weight:600;color:var(--text-1);margin-bottom:3vw;text-transform:uppercase;letter-spacing:0.5px;">How physiotherapy helps</div>
+      <div id="cd-helps"></div>
+    </div>
+    </div>
+    <div style="padding:4vw 5vw max(env(safe-area-inset-bottom,0px),8vw);">
+      <div class="btn-primary" onclick="go('s-booking')">
+        <span class="btn-label"><i class="ti ti-calendar-plus"></i> Book a session for this</span>
+        <span class="btn-arr"><i class="ti ti-arrow-right" style="color:#fff"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MY BOOKINGS -->
+<div class="screen" id="s-mybookings">
+  <div class="back-row">
+    <button class="back-btn" onclick="go('s-home')"><i class="ti ti-arrow-left"></i></button>
+    <div style="font-size:clamp(15px,4.2vw,18px);font-weight:600;color:var(--text-1);">My bookings</div>
+  </div>
+  <div class="scroll">
+    <div style="padding:4vw 5vw 2vw;font-size:clamp(12px,3.2vw,14px);color:var(--muted);">Upcoming & past sessions</div>
+    <div style="padding:0 5vw max(env(safe-area-inset-bottom,0px),6vw);">
+      <div class="upcoming-card">
+        <div style="font-size:clamp(10px,2.8vw,12px);font-weight:600;color:var(--blue-600);margin-bottom:2vw;text-transform:uppercase;letter-spacing:0.5px;">Upcoming</div>
+        <div style="font-size:clamp(14px,4vw,17px);font-weight:600;color:var(--text-1);margin-bottom:1.5vw;">Knee & Ankle consultation</div>
+        <div style="font-size:clamp(12px,3.3vw,14px);color:var(--muted);margin-bottom:4vw;"><i class="ti ti-calendar" style="vertical-align:-1px;margin-right:4px"></i> Fri, 9 May · 10:30 AM · Video call</div>
+        <div class="btn-primary" style="font-size:clamp(13px,3.8vw,15px);">
+          <span class="btn-label"><i class="ti ti-video"></i> Join session</span>
+          <span class="btn-arr"><i class="ti ti-arrow-right" style="color:#fff"></i></span>
+        </div>
+      </div>
+      <div style="font-size:clamp(11px,3vw,13px);font-weight:600;color:var(--muted);margin:4vw 0 2vw;text-transform:uppercase;letter-spacing:0.5px;">Past sessions</div>
+      <div class="past-card">
+        <div style="font-size:clamp(13px,3.8vw,16px);font-weight:600;color:var(--text-2);margin-bottom:1.5vw;">Back & Neck consultation</div>
+        <div style="font-size:clamp(12px,3.2vw,14px);color:var(--muted);margin-bottom:2.5vw;"><i class="ti ti-calendar" style="vertical-align:-1px;margin-right:4px"></i> Mon, 28 Apr · 9:00 AM</div>
+        <span style="background:#DCFCE7;color:#166534;font-size:clamp(11px,3vw,13px);font-weight:600;padding:3px 12px;border-radius:50px;">Completed</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING FLOW -->
+<div class="screen" id="s-booking">
+  <div class="bk-header">
+    <button style="background:none;border:none;cursor:pointer;color:var(--blue-key);font-size:clamp(20px,5.5vw,24px);padding:0;display:flex;align-items:center;" onclick="prevStep()"><i class="ti ti-arrow-left"></i></button>
+    <div style="font-size:clamp(14px,4vw,17px);font-weight:600;color:var(--text-1);">Book a session</div>
+    <div style="width:24px"></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-lbl"><span id="prog-lbl">Step 1 of 8</span><span id="prog-pct">12%</span></div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:12%"></div></div>
+  </div>
+  <div class="scroll" id="bk-content"></div>
+</div>
+
+<!-- CONFIRM -->
+<div class="screen" id="s-confirm">
+  <div class="scroll">
+    <div class="cf-body">
+      <div class="cf-ic"><i class="ti ti-circle-check"></i></div>
+      <div style="font-size:clamp(20px,5.5vw,26px);font-weight:700;color:var(--text-1);margin-bottom:2vw;">You're booked!</div>
+      <div style="font-size:clamp(13px,3.8vw,16px);color:var(--muted);text-align:center;line-height:1.65;margin-bottom:6vw;">Your session is confirmed. We'll send a reminder 30 minutes before.</div>
+      <div class="cf-card">
+        <div class="cf-row"><span style="color:var(--muted);">Condition</span><span style="color:var(--text-2);font-weight:600;" id="c-cond">—</span></div>
+        <div class="cf-row"><span style="color:var(--muted);">Date</span><span style="color:var(--text-2);font-weight:600;" id="c-date">—</span></div>
+        <div class="cf-row"><span style="color:var(--muted);">Time</span><span style="color:var(--text-2);font-weight:600;" id="c-time">—</span></div>
+        <div class="cf-row"><span style="color:var(--muted);">Mode</span><span style="color:var(--text-2);font-weight:600;">Video call (online)</span></div>
+        <div class="cf-row"><span style="color:var(--muted);">Fee</span><span style="color:var(--blue-key);font-weight:600;">Free (first session)</span></div>
+      </div>
+      <div class="btn-primary" onclick="go('s-home')">
+        <span class="btn-label"><i class="ti ti-home"></i> Back to home</span>
+        <span class="btn-arr"><i class="ti ti-arrow-right" style="color:#fff"></i></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+const condData={
+  back:{title:"Back & Neck",svg:"#ill-back",desc:"Poor posture and prolonged sitting cause most back and neck pain.",helps:["Strengthening exercises for your condition","Ergonomic guidance for home & work","Cervical mobility to reduce stiffness"]},
+  knee:{title:"Knee & Ankle",svg:"#ill-knee",desc:"Arthritis, ligament strain or sprains — early treatment restores full mobility.",helps:["Exercises to strengthen knee & ankle","Manual therapy to reduce stiffness","Balance training to prevent re-injury"]},
+  shoulder:{title:"Shoulder & Elbow",svg:"#ill-shoulder",desc:"Frozen shoulder or rotator cuff issues can severely limit arm movement.",helps:["Mobilisation to restore range of motion","Rotator cuff strengthening","Deep tissue relief therapy"]},
+  hip:{title:"Hip & Pelvic",svg:"#ill-hip",desc:"Hip pain from bursitis or arthritis makes walking and sitting difficult.",helps:["Hip mobility & strengthening","Gait retraining","Manual therapy for joint relief"]},
+  neuro:{title:"Neurological",svg:"#ill-neuro",desc:"Sciatica and nerve compression cause radiating pain and limited movement.",helps:["Nerve mobilisation techniques","Posture retraining","Strength & coordination exercises"]},
+  cardiac:{title:"Cardiac & Chest",svg:"#ill-cardiac",desc:"Chest tightness and low stamina respond well to physio-guided care.",helps:["Breathing exercises for lung capacity","Gradual cardiovascular conditioning","Posture correction for chest relief"]}
+};
+const steps=[
+  {id:"cond",title:"What pain are you dealing with?",sub:"Select your primary concern — Required",type:"options",opts:["Back & Neck pain","Knee & Ankle pain","Shoulder & Elbow pain","Hip & Pelvic pain","Neurological pain","Cardiac & Chest pain","Other"]},
+  {id:"dur",title:"When did you first experience this pain?",sub:"Required",type:"options",opts:["Few days","Few weeks","Few months","Few years"]},
+  {id:"intensity",title:"What is the intensity of your pain?",sub:"1 = lowest, 10 = highest — Required",type:"pain_scale"},
+  {id:"want",title:"What do you want from the physio?",sub:"Required",type:"options",opts:["Exercise to do on my own","Live 1:1 class with a physio","Second opinion"]},
+  {id:"gender",title:"What is your gender?",sub:"Required",type:"options",opts:["Male","Female"]},
+  {id:"age",title:"What is your age?",sub:"Required",type:"text_input",placeholder:"Type your age here..."},
+  {id:"complaint",title:"What is your chief complaint?",sub:"Required",type:"textarea",placeholder:"Describe your main concern in a few words..."},
+  {id:"slot",title:"Pick a date & time",sub:"All sessions are 30 mins via video call",type:"slot"}
+];
+let curStep=0,ans={},selDate="Thu 8",selSlot="",hasBooked=false;
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);if(id==='s-booking'){curStep=0;ans={};selSlot="";renderStep();}if(id==='s-home'){updateFab();}}
+function prevStep(){if(curStep===0){go('s-home');}else{curStep--;renderStep();}}
+function goCondition(k){const d=condData[k];document.getElementById("cd-title").textContent=d.title;document.getElementById("cd-svg").innerHTML=`<use href="${d.svg}"/>`;document.getElementById("cd-desc").textContent=d.desc;document.getElementById("cd-helps").innerHTML=d.helps.map(h=>`<div class="help-row"><i class="ti ti-check" style="color:var(--blue-600);flex-shrink:0;margin-top:2px;font-size:clamp(14px,4vw,16px);"></i><span style="font-size:clamp(13px,3.5vw,15px);color:var(--text-2);line-height:1.5;">${h}</span></div>`).join("");go('s-condition');}
+function renderStep(){
+  const s=steps[curStep],tot=steps.length,pct=Math.round(((curStep+1)/tot)*100);
+  document.getElementById("prog-lbl").textContent=`Step ${curStep+1} of ${tot}`;
+  document.getElementById("prog-pct").textContent=`${pct}%`;
+  document.getElementById("prog-fill").style.width=`${pct}%`;
+  let html=`<div style="padding:5vw 5vw 4vw;"><div style="font-size:clamp(17px,4.8vw,22px);font-weight:700;color:var(--text-1);margin-bottom:2vw;line-height:1.35;">${s.title}</div><div style="font-size:clamp(12px,3.2vw,14px);color:var(--muted);">${s.sub}</div></div>`;
+  if(s.type==="options"){html+=`<div class="opt-list">${s.opts.map(o=>`<div class="opt${ans[s.id]===o?' sel':''}" onclick="selOpt('${s.id}','${o.replace(/'/g,"\\'")}')"><span>${o}</span><span class="opt-chk"><i class="ti ti-check"></i></span></div>`).join("")}</div>`;}
+  else if(s.type==="pain_scale"){html+=`<div style="padding:0 5vw 2vw;display:flex;justify-content:space-between;font-size:clamp(11px,3vw,13px);color:var(--muted);"><span>Lowest</span><span>Highest</span></div><div class="pain-grid">${["1","2","3","4","5","6","7","8","9","10"].map(n=>`<div class="pain-num${ans[s.id]===n?' sel':''}" onclick="selOpt('${s.id}','${n}')">${n}</div>`).join("")}</div>`;}
+  else if(s.type==="text_input"){html+=`<div style="padding:0 5vw;"><input class="bk-input" type="number" min="1" max="120" placeholder="${s.placeholder}" id="bk-live-input" autocomplete="off"/></div>`;}
+  else if(s.type==="textarea"){html+=`<div style="padding:0 5vw;"><textarea class="bk-textarea" placeholder="${s.placeholder}" id="bk-live-input" autocomplete="off"></textarea></div>`;}
+  else if(s.type==="slot"){const dates=[{d:"Thu",n:"8"},{d:"Fri",n:"9"},{d:"Sat",n:"10"},{d:"Sun",n:"11"},{d:"Mon",n:"12"}];html+=`<div class="date-row">${dates.map(x=>`<div class="dchip${selDate===x.d+' '+x.n?' on':''}" onclick="selDateFn('${x.d} ${x.n}')"><div class="dday">${x.d}</div><div class="dnum">${x.n}</div></div>`).join("")}</div><div class="slot-grid">${["9:00 AM","9:30 AM","10:00 AM","10:30 AM","11:00 AM","12:00 PM","4:00 PM","5:00 PM","6:00 PM"].map(sl=>`<div class="slot${selSlot===sl?' sel':''}" onclick="selSlotFn('${sl}')">${sl}</div>`).join("")}</div>`;}
+  const canNext=s.type==="slot"?!!selSlot:s.type==="text_input"||s.type==="textarea"?(ans[s.id]||"").toString().trim().length>0:!!ans[s.id];
+  const isLast=curStep===steps.length-1;
+  const nxtBg=canNext?`background:var(--blue-key);color:#fff;cursor:pointer;`:`background:var(--neutral-300);color:#fff;cursor:not-allowed;`;
+  html+=`<div class="nxt-wrap">${curStep>0?`<div class="prev-btn" onclick="prevStep()"><i class="ti ti-arrow-left"></i> Back</div>`:''}<div id="nxt-btn" onclick="${canNext?'nextStep()':''}" style="${nxtBg}border-radius:100px;padding:clamp(13px,3.5vw,16px) 5vw;font-size:clamp(14px,4vw,16px);font-weight:500;flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--font);"><span style="display:flex;align-items:center;gap:8px;">${isLast?'<i class="ti ti-circle-check"></i> Confirm booking':'Continue'}</span>${canNext?`<span style="width:clamp(28px,7vw,32px);height:clamp(28px,7vw,32px);background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="ti ti-arrow-right" style="color:#fff;"></i></span>`:''}</div></div>`;
+  document.getElementById("bk-content").innerHTML=html;
+
+  // Wire up live input AFTER innerHTML is set — no re-render on typing
+  const liveInput = document.getElementById('bk-live-input');
+  if(liveInput){
+    // Restore saved value without triggering events
+    if(ans[s.id]) liveInput.value = ans[s.id];
+    // Save on change/blur only — keyboard stays open
+    liveInput.addEventListener('input', function(){
+      ans[s.id] = this.value;
+      updateNextBtn();
+    });
+    // Focus after a short delay to open keyboard
+    setTimeout(()=>{ liveInput.focus(); }, 100);
+  }
+}
+function selOpt(id,val){ans[id]=val;renderStep();}
+function updateFab(){
+  const fab=document.getElementById('main-fab');
+  if(!fab)return;
+  if(hasBooked){
+    fab.setAttribute('onclick',"go('s-mybookings')");
+    const lbl=fab.querySelector('.fab-label');
+    if(lbl){lbl.innerHTML=' View booking details';}
+  }
+}
+function updateNextBtn(){
+  const s=steps[curStep];
+  const canNext=s.type==='text_input'||s.type==='textarea'?(ans[s.id]||'').toString().trim().length>0:!!ans[s.id];
+  const btn=document.getElementById('nxt-btn');
+  if(!btn)return;
+  const isLast=curStep===steps.length-1;
+  if(canNext){
+    btn.style.background='var(--blue-key)';
+    btn.style.cursor='pointer';
+    btn.style.color='#fff';
+    btn.onclick=nextStep;
+    const arr=document.getElementById('nxt-arr');
+    if(arr)arr.style.display='flex';
+  } else {
+    btn.style.background='var(--neutral-300)';
+    btn.style.cursor='not-allowed';
+    btn.onclick=null;
+    const arr=document.getElementById('nxt-arr');
+    if(arr)arr.style.display='none';
+  }
+}
+function selDateFn(d){selDate=d;renderStep();}
+function selSlotFn(s){selSlot=s;renderStep();}
+function nextStep(){if(curStep<steps.length-1){curStep++;renderStep();}else{document.getElementById("c-cond").textContent=ans["cond"]||"—";document.getElementById("c-date").textContent=selDate+" May";document.getElementById("c-time").textContent=selSlot||"—";hasBooked=true;go('s-confirm');}}
+</script>
+</body>
+</html>
